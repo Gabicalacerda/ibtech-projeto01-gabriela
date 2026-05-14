@@ -1,3 +1,5 @@
+/* ===== THEME ===== */
+
 const themeToggle =
 document.getElementById('theme-toggle');
 
@@ -13,16 +15,35 @@ themeToggle.addEventListener('click',()=>{
   );
 });
 
+
+/* ===== INITIAL THEME ===== */
+
 window.addEventListener('DOMContentLoaded',()=>{
 
   const savedTheme =
   localStorage.getItem('theme');
 
-  if(savedTheme === 'light'){
-    document.body.classList.add('light-theme');
+  if(savedTheme){
+
+    if(savedTheme === 'light'){
+      document.body.classList.add('light-theme');
+    }
+
+  }else{
+
+    const prefersLight =
+    window.matchMedia(
+      '(prefers-color-scheme: light)'
+    ).matches;
+
+    if(prefersLight){
+      document.body.classList.add('light-theme');
+    }
   }
 });
 
+
+/* ===== COPY EMAIL ===== */
 
 const btnEmail =
 document.getElementById('emailBtn');
@@ -52,6 +73,8 @@ btnEmail.addEventListener('click',()=>{
 });
 
 
+/* ===== INTERSECTION OBSERVER ===== */
+
 const observer =
 new IntersectionObserver((entries)=>{
 
@@ -76,6 +99,8 @@ document
 .forEach(el=>observer.observe(el));
 
 
+/* ===== GLOW EFFECT ===== */
+
 document.addEventListener(
   'mousemove',
   e=>{
@@ -92,3 +117,30 @@ document.addEventListener(
       e.clientY + 'px'
     );
 });
+
+
+/* ===== TYPEWRITER ===== */
+
+const txt =
+'Ciência de Dados & Inteligência Artificial';
+
+const tw =
+document.getElementById('typewriter');
+
+let i = 0;
+
+function typeWriter(){
+
+  if(i < txt.length){
+
+    tw.textContent += txt.charAt(i);
+
+    i++;
+
+    setTimeout(typeWriter,40);
+  }
+}
+
+tw.textContent = '';
+
+typeWriter();
