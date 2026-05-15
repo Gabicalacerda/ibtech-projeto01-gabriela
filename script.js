@@ -1,152 +1,127 @@
-/* ===================================================
-   TEMA CLARO / ESCURO
-   
-   Ao clicar no botão 🌓, adiciona ou remove a classe
-   .light-theme do body. O CSS já sabe o que fazer
-   quando essa classe existe (muda as variáveis de cor).
-   
-   localStorage salva a escolha do usuário no navegador,
-   assim ela é lembrada na próxima visita.
-=================================================== */
- 
+/* botão do tema */
+
 const themeToggle = document.getElementById('theme-toggle');
- 
+
+/* troca o tema */
+
 themeToggle.addEventListener('click', () => {
-  // toggle: se tem a classe, remove. Se não tem, adiciona.
+
+  // adiciona ou remove o tema claro
   document.body.classList.toggle('light-theme');
- 
-  // Salva 'light' ou 'dark' no armazenamento local do navegador
+
+  // salva o tema escolhido
   const tema = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+
   localStorage.setItem('theme', tema);
 });
- 
- 
-/* ===================================================
-   TEMA INICIAL (ao carregar a página)
-   
-   Verifica se o usuário já escolheu um tema antes.
-   Se não escolheu, usa o tema do sistema operacional.
-=================================================== */
- 
+
+/* verifica o tema ao abrir a página */
+
 window.addEventListener('DOMContentLoaded', () => {
+
+  // pega o tema salvo
   const temaSalvo = localStorage.getItem('theme');
- 
+
   if (temaSalvo) {
-    // Usuário já visitou antes — usa o que foi salvo
+
+    // aplica o tema salvo
     if (temaSalvo === 'light') {
       document.body.classList.add('light-theme');
     }
+
   } else {
-    // Primeira visita — detecta o tema do sistema
+
+    // detecta o tema do computador
     const sistemaUsaClaro = window.matchMedia('(prefers-color-scheme: light)').matches;
+
     if (sistemaUsaClaro) {
       document.body.classList.add('light-theme');
     }
   }
 });
- 
- 
-/* ===================================================
-   COPIAR E-MAIL
-   
-   Ao clicar no botão de e-mail:
-   1. Copia o endereço para a área de transferência
-   2. Muda o texto do botão para "copiado ✓"
-   3. Depois de 2 segundos, volta ao texto original
-=================================================== */
- 
+
+/* botão de copiar email */
+
 const btnEmail = document.getElementById('emailBtn');
- 
-// Salva o HTML original do botão para restaurar depois
+
+// guarda o conteúdo original
 const htmlOriginal = btnEmail.innerHTML;
- 
+
 btnEmail.addEventListener('click', () => {
-  // Clipboard API: copia texto para a área de transferência
+
+  // copia o email
   navigator.clipboard.writeText('gabicalacerda@gmail.com');
- 
-  // Mostra o feedback visual
+
+  // mostra mensagem de copiado
   btnEmail.innerHTML = `
     <span class="clink-lbl">status</span>
     <span class="clink-val">copiado ✓</span>
   `;
- 
-  // Depois de 2000ms (2 segundos), volta ao original
+
+  // volta ao normal depois de 2 segundos
   setTimeout(() => {
     btnEmail.innerHTML = htmlOriginal;
   }, 2000);
 });
- 
- 
-/* ===================================================
-   ANIMAÇÃO DE ENTRADA DAS SEÇÕES (IntersectionObserver)
-   
-   Em vez de escutar o evento 'scroll' (que dispara centenas
-   de vezes por segundo), usamos o IntersectionObserver.
-   
-   Ele observa cada elemento com .fade-in e avisa quando
-   aquele elemento aparece na tela. Aí adicionamos .visible
-   para ativar a animação CSS.
-   
-   observer.unobserve() para de observar depois de animar,
-   assim a animação dispara só uma vez por elemento.
-=================================================== */
- 
+
+/* animação quando aparece na tela */
+
 const observer = new IntersectionObserver((entries) => {
+
   entries.forEach(entry => {
+
     if (entry.isIntersecting) {
-      // O elemento entrou na tela: ativa a animação
+
+      // adiciona a animação
       entry.target.classList.add('visible');
-      // Para de observar este elemento (anima só uma vez)
+
+      // para de observar depois
       observer.unobserve(entry.target);
     }
   });
+
 }, {
-  threshold: 0.12 // dispara quando 12% do elemento está visível
+  threshold: 0.12
 });
- 
-// Aplica o observer em todos os elementos com classe fade-in
+
+// aplica em todos os elementos
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
- 
- 
-/* ===================================================
-   EFEITO GLOW QUE SEGUE O MOUSE
-   
-   Ao mover o mouse, salva as coordenadas X e Y
-   como variáveis CSS (--x e --y).
-   O CSS usa essas variáveis para posicionar um gradiente
-   circular que acompanha o cursor.
-=================================================== */
- 
+
+/* efeito de luz acompanhando o mouse */
+
 document.addEventListener('mousemove', (e) => {
+
+  // salva a posição do mouse
   document.documentElement.style.setProperty('--x', e.clientX + 'px');
+
   document.documentElement.style.setProperty('--y', e.clientY + 'px');
 });
- 
- 
-/* ===================================================
-   EFEITO TYPEWRITER (máquina de escrever)
-   
-   Apaga o texto do elemento #typewriter e vai
-   escrevendo letra por letra com um intervalo de 40ms.
-   
-   A função typeWriter() chama ela mesma recursivamente
-   até escrever todas as letras.
-=================================================== */
- 
+
+/* efeito digitando */
+
 const texto = 'Ciência de Dados & Inteligência Artificial';
+
 const elementoTypewriter = document.getElementById('typewriter');
+
 let indice = 0;
- 
+
+// função que escreve letra por letra
 function typeWriter() {
+
   if (indice < texto.length) {
-    // Adiciona uma letra ao texto existente
+
+    // adiciona uma letra
     elementoTypewriter.textContent += texto.charAt(indice);
+
     indice++;
-    // Chama a si mesma depois de 40ms para escrever a próxima letra
+
+    // chama de novo depois de 40ms
     setTimeout(typeWriter, 40);
   }
 }
- 
-// Começa com o elemento vazio e inicia o efeito
+
+// limpa o texto antes de começar
 elementoTypewriter.textContent = '';
+
+// inicia o efeito
 typeWriter();

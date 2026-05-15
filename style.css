@@ -1,39 +1,25 @@
-/* ===================================================
-   VARIÁVEIS GLOBAIS
-   Tudo que muda entre temas fica aqui no :root.
-   É como uma "caixa de configurações" da página.
-   Quando quero mudar uma cor, mudo só aqui.
-=================================================== */
- 
+/* cores e fontes da página */
+
 :root {
-  /* Cores do tema escuro (padrão) */
-  --bg: #0B0F14;         /* fundo da página */
-  --card: #121821;       /* fundo dos cards */
-  --text: #EAF2F8;       /* cor do texto principal */
-  --muted: #8A97A8;      /* cor do texto secundário (mais apagado) */
-  --accent: #00F5A0;     /* cor de destaque (verde) */
-  --border: rgba(255, 255, 255, .08); /* bordas bem sutis */
- 
-  /* Tamanhos de fonte — 4 tamanhos definidos como variáveis */
+  --bg: #0B0F14;
+  --card: #121821;
+  --text: #EAF2F8;
+  --muted: #8A97A8;
+  --accent: #00F5A0;
+  --border: rgba(255, 255, 255, .08);
+
   --fs-sm: .9rem;
   --fs-base: 1rem;
   --fs-lg: 2rem;
   --fs-xl: 5rem;
- 
-  /* Famílias de fonte */
+
   --font-main: 'Inter', sans-serif;
   --font-title: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
- 
- 
-/* ===================================================
-   TEMA CLARO
-   Quando o JS adiciona a classe .light-theme no body,
-   essas variáveis sobrescrevem as do :root.
-   O resto do CSS continua igual — só as variáveis mudam.
-=================================================== */
- 
+
+/* tema claro */
+
 .light-theme {
   --bg: #F4F7FA;
   --card: #ffffff;
@@ -42,42 +28,36 @@
   --accent: #00B37E;
   --border: rgba(0, 0, 0, .06);
 }
- 
- 
-/* ===================================================
-   RESET
-   Zera as margens e paddings padrão do navegador,
-   e define box-sizing para que padding não aumente
-   o tamanho dos elementos.
-=================================================== */
- 
-*, *::before, *::after {
+
+/* tira os estilos padrões do navegador */
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
- 
+
+/* rolagem suave */
+
 html {
-  /* Faz o scroll da página ser suave ao clicar nos links do nav */
   scroll-behavior: smooth;
 }
- 
- 
-/* ===================================================
-   BODY
-   Configurações gerais da página inteira.
-=================================================== */
- 
+
+/* configurações gerais da página */
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-main);
-  overflow-x: hidden; /* esconde scroll horizontal indesejado */
-  line-height: 1.7;   /* espaçamento entre linhas do texto */
-  transition: .4s ease; /* animação suave ao trocar de tema */
+  overflow-x: hidden;
+  line-height: 1.7;
+  transition: .4s ease;
 }
- 
-/* Efeito de brilho que segue o mouse (controlado pelo JS via --x e --y) */
+
+/* efeito de luz seguindo o mouse */
+
 body::before {
   content: '';
   position: fixed;
@@ -87,79 +67,73 @@ body::before {
     rgba(0, 245, 160, .05),
     transparent 40%
   );
-  pointer-events: none; /* não bloqueia cliques */
-  z-index: -1;          /* fica atrás de tudo */
+  pointer-events: none;
+  z-index: -1;
 }
- 
- 
-/* ===================================================
-   ACESSIBILIDADE
-   Elementos interativos (links e botões) precisam ter
-   um indicador visível quando selecionados pelo teclado.
-   Remover outline sem substituir é falha de acessibilidade.
-=================================================== */
- 
-a:focus, button:focus {
+
+/* destaque quando usa teclado */
+
+a:focus,
+button:focus {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
- 
- 
-/* ===================================================
-   CONTAINER
-   Limita a largura do conteúdo e centraliza na tela.
-   min(1100px, 90%) significa: use 1100px ou 90% da tela,
-   o que for menor — assim funciona bem em qualquer tamanho.
-=================================================== */
- 
+
+/* limita a largura da página */
+
 .cnt {
   width: min(1100px, 90%);
   margin: 0 auto;
 }
- 
- 
-/* ===================================================
-   NAV — barra de navegação fixa no topo
-=================================================== */
- 
+
+/* menu do topo */
+
 nav {
-  position: fixed;      /* fica fixo mesmo ao rolar a página */
+  position: fixed;
   width: 100%;
   top: 0;
-  backdrop-filter: blur(20px); /* efeito de vidro fosco */
+  backdrop-filter: blur(20px);
   background: rgba(11, 15, 20, .55);
   border-bottom: 1px solid var(--border);
-  z-index: 999; /* fica na frente de tudo */
+  z-index: 999;
 }
- 
+
+/* organiza os itens do menu */
+
 .nav-inner {
   height: 80px;
-  display: flex;              /* coloca itens em linha */
-  align-items: center;        /* alinha verticalmente ao centro */
-  justify-content: space-between; /* espaça os itens nas extremidades */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
- 
+
 .logo {
   font-family: var(--font-title);
   font-size: 1.1rem;
   font-weight: 600;
 }
- 
+
+/* links do menu */
+
 .nlinks {
   display: flex;
-  gap: 2rem; /* espaço entre os links */
+  gap: 2rem;
 }
- 
+
 .nlinks a {
   text-decoration: none;
   color: var(--muted);
-  transition: .3s; /* animação suave no hover */
+  transition: .3s;
 }
- 
+
+/* efeito ao passar o mouse */
+
 .nlinks a:hover {
-  color: var(--text); /* clareia ao passar o mouse */
+  color: var(--text);
 }
- 
+
+/* botão de trocar tema */
+
 #theme-toggle {
   background: none;
   border: none;
@@ -167,67 +141,68 @@ nav {
   cursor: pointer;
   font-size: 1.1rem;
 }
- 
- 
-/* ===================================================
-   HERO — seção principal de destaque
-=================================================== */
- 
+
+/* seção inicial */
+
 .hero {
-  min-height: 100vh; /* ocupa pelo menos a tela inteira */
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-top: 5rem; /* compensa a altura da nav fixa */
+  padding-top: 5rem;
 }
- 
-/* Grid de 2 colunas: texto + foto */
+
+/* divide texto e imagem */
+
 .hero-content {
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 4rem;
   align-items: center;
 }
- 
-/* Nome grande com tamanho fluido (cresce/diminui com a tela) */
+
+/* nome principal */
+
 .hero-name {
   font-family: var(--font-title);
-  font-size: clamp(4rem, 10vw, 7rem); /* mínimo 4rem, máximo 7rem */
+  font-size: clamp(4rem, 10vw, 7rem);
   line-height: .9;
   letter-spacing: -0.08em;
   margin-bottom: 1rem;
 }
- 
+
+/* subtítulo */
+
 .hero-subtitle {
   color: var(--muted);
   font-size: var(--fs-base);
   font-family: var(--font-mono);
 }
- 
-/* Pílula com curso/instituição */
+
+/* etiqueta do curso */
+
 .sec-pill {
   width: fit-content;
   padding: .6rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 999px; /* arredondamento total = pílula */
+  border-radius: 999px;
   font-size: .8rem;
   color: var(--accent);
   margin-bottom: 2rem;
   font-family: var(--font-mono);
 }
- 
+
+/* imagem principal */
+
 .hero-image img {
   width: 100%;
   height: 620px;
-  object-fit: cover;    /* recorta a imagem para preencher sem distorcer */
+  object-fit: cover;
   border-radius: 28px;
   border: 1px solid var(--border);
 }
- 
- 
-/* ===================================================
-   TERMINAL — bloco decorativo estilo linha de comando
-=================================================== */
- 
+
+/* terminal decorativo */
+
 .terminal {
   margin-top: 3rem;
   background: rgba(18, 24, 33, .72);
@@ -235,110 +210,121 @@ nav {
   border-radius: 24px;
   overflow: hidden;
 }
- 
+
+/* topo do terminal */
+
 .terminal-top {
   display: flex;
   gap: .5rem;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border);
 }
- 
-/* Bolinhas coloridas decorativas */
-.dot { width: 12px; height: 12px; border-radius: 50%; }
-.red    { background: #ff5f56; }
+
+/* bolinhas coloridas */
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.red { background: #ff5f56; }
 .yellow { background: #ffbd2e; }
-.green  { background: #27c93f; }
- 
+.green { background: #27c93f; }
+
+/* conteúdo do terminal */
+
 .terminal-body {
   padding: 2rem;
   font-family: var(--font-mono);
 }
- 
+
+/* linhas do terminal */
+
 .terminal-line {
   margin-bottom: 1rem;
   color: var(--muted);
 }
- 
+
 .terminal-line span {
-  color: var(--accent); /* o símbolo ">" em verde */
+  color: var(--accent);
 }
- 
- 
-/* ===================================================
-   SEÇÕES GERAIS
-=================================================== */
- 
+
+/* espaçamento das seções */
+
 .about {
-  padding: 7rem 0; /* espaçamento acima e abaixo de cada seção */
+  padding: 7rem 0;
 }
- 
-/* Número grande decorativo (01, 02, 03...) */
+
+/* número decorativo */
+
 .sec-num {
   font-size: 5rem;
-  opacity: .08; /* quase transparente, é só decoração */
+  opacity: .08;
   font-weight: 700;
   margin-bottom: 1rem;
 }
- 
+
+/* título das seções */
+
 .abt-destaque {
   font-family: var(--font-title);
   font-size: 3rem;
   margin-bottom: 2rem;
 }
- 
-.abt-content { max-width: 750px; }
- 
+
+.abt-content {
+  max-width: 750px;
+}
+
+/* texto */
+
 .abt-p {
   margin-bottom: 1.5rem;
   color: var(--muted);
 }
- 
- 
-/* ===================================================
-   FLIP CARDS — cards que viram ao passar o mouse
-   
-   Como funciona:
-   1. .flip-card define o tamanho e a perspectiva 3D
-   2. .flip-inner é o elemento que realmente gira
-   3. .flip-front e .flip-back ficam um em cima do outro
-   4. backface-visibility: hidden esconde o verso quando virado
-   5. .flip-back começa já rotacionado 180°, então some
-   6. No hover, .flip-inner gira 180° e o verso aparece
-=================================================== */
- 
+
+/* grid dos cards */
+
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
   margin-top: 3rem;
 }
- 
+
+/* card */
+
 .flip-card {
   height: 240px;
-  perspective: 1000px; /* define a profundidade do efeito 3D */
+  perspective: 1000px;
 }
- 
+
+/* parte que gira */
+
 .flip-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform .8s; /* duração da animação de virar */
-  transform-style: preserve-3d; /* mantém o efeito 3D nos filhos */
+  transition: transform .8s;
+  transform-style: preserve-3d;
 }
- 
-/* Quando o mouse está sobre o card, gira o flip-inner */
+
+/* gira o card */
+
 .flip-card:hover .flip-inner {
   transform: rotateY(180deg);
 }
- 
-/* Frente e verso compartilham o mesmo estilo base */
+
+/* frente e verso do card */
+
 .flip-front,
 .flip-back {
   position: absolute;
-  inset: 0; /* equivale a top/right/bottom/left: 0 */
+  inset: 0;
   border-radius: 24px;
   padding: 2rem;
-  backface-visibility: hidden; /* esconde quando está de costas */
+  backface-visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -346,89 +332,100 @@ nav {
   background: rgba(18, 24, 33, .75);
   border: 1px solid var(--border);
 }
- 
-/* O verso já começa girado — por isso fica invisível no início */
+
+/* lado de trás */
+
 .flip-back {
   transform: rotateY(180deg);
   flex-direction: column;
 }
- 
-.flip-back p { color: var(--muted); }
- 
- 
-/* ===================================================
-   INTERESSES — grid com foto + texto
-=================================================== */
- 
+
+.flip-back p {
+  color: var(--muted);
+}
+
+/* grid dos interesses */
+
 .interest-grid {
   margin-top: 3rem;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 colunas */
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
- 
+
+/* card dos interesses */
+
 .interest-card {
   background: rgba(18, 24, 33, .72);
   border: 1px solid var(--border);
   border-radius: 28px;
-  overflow: hidden; /* recorta a imagem no border-radius */
+  overflow: hidden;
   transition: .4s;
 }
- 
+
+/* animação ao passar o mouse */
+
 .interest-card:hover {
-  transform: translateY(-6px); /* sobe 6px ao passar o mouse */
+  transform: translateY(-6px);
 }
- 
+
+/* imagens */
+
 .interest-card img {
   width: 100%;
   height: 260px;
   object-fit: cover;
 }
- 
-.interest-info { padding: 2rem; }
- 
+
+.interest-info {
+  padding: 2rem;
+}
+
 .interest-info h3 {
   font-family: var(--font-title);
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
- 
-.interest-info p { color: var(--muted); }
- 
- 
-/* ===================================================
-   VÍDEO
-=================================================== */
- 
-.video-wrap { margin-top: 3rem; }
- 
+
+.interest-info p {
+  color: var(--muted);
+}
+
+/* vídeo */
+
+.video-wrap {
+  margin-top: 3rem;
+}
+
 .video-wrap iframe {
   width: 100%;
-  aspect-ratio: 16/9; /* mantém proporção de vídeo automaticamente */
+  aspect-ratio: 16/9;
   border: none;
   border-radius: 24px;
 }
- 
- 
-/* ===================================================
-   FOOTER / CONTATO
-=================================================== */
- 
-footer { padding: 7rem 0; }
- 
+
+/* rodapé */
+
+footer {
+  padding: 7rem 0;
+}
+
 .contact-h {
   font-family: var(--font-title);
   font-size: 3rem;
   margin-bottom: 3rem;
 }
- 
+
+/* contatos */
+
 .contact-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
 }
- 
-/* Estilo compartilhado entre botão de email e links de contato */
+
+/* cards de contato */
+
 .clink {
   padding: 1.5rem;
   border-radius: 24px;
@@ -438,12 +435,15 @@ footer { padding: 7rem 0; }
   color: var(--text);
   transition: .3s;
 }
- 
+
+/* animação nos contatos */
+
 .clink:hover {
   transform: translateY(-5px);
 }
- 
-/* Rótulo pequeno acima do valor (ex: "e-mail") */
+
+/* texto pequeno acima */
+
 .clink-lbl {
   display: block;
   color: var(--accent);
@@ -452,70 +452,56 @@ footer { padding: 7rem 0; }
   text-transform: uppercase;
   font-family: var(--font-mono);
 }
- 
- 
-/* ===================================================
-   ANIMAÇÕES DE ENTRADA
-   
-   Elementos com .fade-in começam invisíveis e deslocados.
-   Quando o JS adiciona .visible (via IntersectionObserver),
-   eles aparecem suavemente.
-=================================================== */
- 
+
+/* animação de entrada */
+
 .fade-in {
   opacity: 0;
-  transform: translateY(40px); /* começa 40px abaixo */
+  transform: translateY(40px);
   transition: opacity .8s ease, transform .8s ease;
 }
- 
+
+/* elemento aparecendo */
+
 .fade-in.visible {
   opacity: 1;
-  transform: none; /* volta à posição normal */
+  transform: none;
 }
- 
- 
-/* ===================================================
-   RESPONSIVIDADE
-   
-   @media define regras que só valem em certos tamanhos de tela.
-   Abaixo de 900px: muda o layout do hero para coluna única.
-   Abaixo de 768px: ajusta tamanhos de fonte e esconde o nav.
-=================================================== */
- 
+
+/* ajustes para tablet */
+
 @media (max-width: 900px) {
-  /* Hero vira coluna única (texto em cima, foto embaixo) */
+
   .hero-content {
     grid-template-columns: 1fr;
   }
- 
-  /* Interesses vira coluna única também */
+
   .interest-grid {
     grid-template-columns: 1fr;
   }
- 
-  /* Foto menor no mobile */
+
   .hero-image img {
     height: 420px;
   }
 }
- 
+
+/* ajustes para celular */
+
 @media (max-width: 768px) {
-  /* Nome menor para caber na tela pequena */
+
   .hero-name {
     font-size: 4rem;
   }
- 
-  /* Esconde os links do nav (no mobile não tem espaço) */
+
   .nlinks {
     display: none;
   }
- 
-  /* Títulos menores */
+
   .abt-destaque,
   .contact-h {
     font-size: 2.2rem;
   }
- 
+
   .sec-num {
     font-size: 3rem;
   }
