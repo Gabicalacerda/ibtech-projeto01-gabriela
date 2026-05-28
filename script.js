@@ -13,6 +13,9 @@ themeToggle.addEventListener('click', () => {
   const tema = document.body.classList.contains('light-theme') ? 'light' : 'dark';
 
   localStorage.setItem('theme', tema);
+
+  // atualiza o ícone
+  themeToggle.textContent = tema === 'light' ? '🌙' : '☀️';
 });
 
 /* verifica o tema ao abrir a página */
@@ -27,6 +30,9 @@ window.addEventListener('DOMContentLoaded', () => {
     // aplica o tema salvo
     if (temaSalvo === 'light') {
       document.body.classList.add('light-theme');
+      themeToggle.textContent = '🌙';
+    } else {
+      themeToggle.textContent = '☀️';
     }
 
   } else {
@@ -36,8 +42,46 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (sistemaUsaClaro) {
       document.body.classList.add('light-theme');
+      themeToggle.textContent = '🌙';
+    } else {
+      themeToggle.textContent = '☀️';
     }
   }
+});
+
+/* menu hambúrguer */
+
+const menuToggle = document.getElementById('menu-toggle');
+const nlinks = document.getElementById('nlinks');
+
+// mostra o botão hambúrguer no mobile
+function checkMobile() {
+  if (window.innerWidth <= 768) {
+    menuToggle.style.display = 'flex';
+  } else {
+    menuToggle.style.display = 'none';
+    nlinks.classList.remove('open');
+    menuToggle.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+}
+
+checkMobile();
+window.addEventListener('resize', checkMobile);
+
+menuToggle.addEventListener('click', () => {
+  const estaAberto = nlinks.classList.toggle('open');
+  menuToggle.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', estaAberto);
+});
+
+// fecha o menu ao clicar em um link
+nlinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    nlinks.classList.remove('open');
+    menuToggle.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
 });
 
 /* botão de copiar email */
@@ -49,19 +93,28 @@ const htmlOriginal = btnEmail.innerHTML;
 
 btnEmail.addEventListener('click', () => {
 
-  // copia o email
-  navigator.clipboard.writeText('gabicalacerda@gmail.com');
-
-  // mostra mensagem de copiado
-  btnEmail.innerHTML = `
-    <span class="clink-lbl">status</span>
-    <span class="clink-val">copiado ✓</span>
-  `;
-
-  // volta ao normal depois de 2 segundos
-  setTimeout(() => {
-    btnEmail.innerHTML = htmlOriginal;
-  }, 2000);
+  // copia o email com tratamento de erro
+  navigator.clipboard.writeText('gabicalacerda@gmail.com')
+    .then(() => {
+      // mostra mensagem de copiado
+      btnEmail.innerHTML = `
+        <span class="clink-lbl">status</span>
+        <span class="clink-val">copiado ✓</span>
+      `;
+    })
+    .catch(() => {
+      // mostra mensagem de erro
+      btnEmail.innerHTML = `
+        <span class="clink-lbl">status</span>
+        <span class="clink-val">erro ao copiar</span>
+      `;
+    })
+    .finally(() => {
+      // volta ao normal depois de 2 segundos
+      setTimeout(() => {
+        btnEmail.innerHTML = htmlOriginal;
+      }, 2000);
+    });
 });
 
 /* animação quando aparece na tela */
