@@ -8,10 +8,14 @@
   --accent: #00F5A0;
   --border: rgba(255, 255, 255, .08);
 
-  --fs-sm: .9rem;
+  --fs-xs: 0.75rem;     /* clink-lbl, sec-pill */
+  --fs-sm: 0.9rem;
   --fs-base: 1rem;
-  --fs-lg: 2rem;
-  --fs-xl: 5rem;
+  --fs-md: 1.1rem;      /* logo, theme-toggle */
+  --fs-lg: 1.5rem;      /* interest-info h3 */
+  --fs-xl: 3rem;        /* títulos de seção */
+  --fs-2xl: 5rem;       /* sec-num */
+  --fs-hero: clamp(4rem, 10vw, 7rem); /* hero-name */
 
   --font-main: 'Inter', sans-serif;
   --font-title: 'Space Grotesk', sans-serif;
@@ -109,7 +113,7 @@ nav {
 
 .logo {
   font-family: var(--font-title);
-  font-size: 1.1rem;
+  font-size: var(--fs-md);
   font-weight: 600;
 }
 
@@ -139,7 +143,7 @@ nav {
   border: none;
   color: var(--text);
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: var(--fs-md);
 }
 
 /* seção inicial */
@@ -164,7 +168,7 @@ nav {
 
 .hero-name {
   font-family: var(--font-title);
-  font-size: clamp(4rem, 10vw, 7rem);
+  font-size: var(--fs-hero);
   line-height: .9;
   letter-spacing: -0.08em;
   margin-bottom: 1rem;
@@ -185,7 +189,7 @@ nav {
   padding: .6rem 1rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  font-size: .8rem;
+  font-size: var(--fs-xs);
   color: var(--accent);
   margin-bottom: 2rem;
   font-family: var(--font-mono);
@@ -259,7 +263,7 @@ nav {
 /* número decorativo */
 
 .sec-num {
-  font-size: 5rem;
+  font-size: var(--fs-2xl);
   opacity: .08;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -269,7 +273,7 @@ nav {
 
 .abt-destaque {
   font-family: var(--font-title);
-  font-size: 3rem;
+  font-size: var(--fs-xl);
   margin-bottom: 2rem;
 }
 
@@ -384,7 +388,7 @@ nav {
 .interest-info h3 {
   font-family: var(--font-title);
   margin-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: var(--fs-lg);
 }
 
 .interest-info p {
@@ -412,7 +416,7 @@ footer {
 
 .contact-h {
   font-family: var(--font-title);
-  font-size: 3rem;
+  font-size: var(--fs-xl);
   margin-bottom: 3rem;
 }
 
@@ -448,9 +452,15 @@ footer {
   display: block;
   color: var(--accent);
   margin-bottom: .6rem;
-  font-size: .75rem;
+  font-size: var(--fs-xs);
   text-transform: uppercase;
   font-family: var(--font-mono);
+}
+
+/* botão hambúrguer — oculto no desktop */
+
+#menu-toggle {
+  display: none;
 }
 
 /* animação de entrada */
@@ -490,19 +500,71 @@ footer {
 @media (max-width: 768px) {
 
   .hero-name {
-    font-size: 4rem;
+    font-size: clamp(2.8rem, 8vw, 4rem);
+  }
+
+  /* botão hambúrguer */
+  #menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: .5rem;
+  }
+
+  #menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: .3s;
+  }
+
+  /* estado aberto */
+  #menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  #menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  #menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
   .nlinks {
     display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(11, 15, 20, .97);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    padding: 1rem 0;
+  }
+
+  .nlinks.open {
+    display: flex;
+  }
+
+  .nlinks a {
+    padding: .9rem 2rem;
+    font-size: var(--fs-base);
   }
 
   .abt-destaque,
   .contact-h {
-    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
   }
 
   .sec-num {
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 6vw, 3rem);
   }
 }
