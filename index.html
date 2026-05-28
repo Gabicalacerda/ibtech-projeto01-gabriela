@@ -15,13 +15,13 @@
   <!-- infos que aparecem quando o link é compartilhado -->
   <meta property="og:title" content="Gabriela Lacerda">
   <meta property="og:description" content="Portfólio pessoal de Gabriela Lacerda">
-  <meta property="og:image" content="assets/og-image.png">
+  <meta property="og:image" content="assets/eye.jpg">
 
   <!-- nome da aba -->
   <title>Gabriela Lacerda</title>
 
   <!-- ícone da aba -->
-  <link rel="icon" href="assets/favicon.png">
+  <link rel="icon" href="assets/eye.jpg">
 
   <!-- conecta o css -->
   <link rel="stylesheet" href="style.css">
@@ -44,7 +44,7 @@
         <span class="logo">Gabriela</span>
 
         <!-- links do menu -->
-        <div class="nlinks">
+        <div class="nlinks" id="nlinks">
           <a href="#sobre">sobre</a>
           <a href="#cursos">cursos</a>
           <a href="#skills">skills</a>
@@ -53,8 +53,18 @@
           <a href="#contato">contato</a>
         </div>
 
-        <!-- botão de trocar tema -->
-        <button id="theme-toggle" type="button" aria-label="Alternar tema">🌓</button>
+        <!-- controles -->
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <!-- botão de trocar tema -->
+          <button id="theme-toggle" type="button" aria-label="Alternar tema">🌙</button>
+
+          <!-- botão hambúrguer (aparece no mobile) -->
+          <button id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" style="display:none">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
 
       </div>
     </div>
